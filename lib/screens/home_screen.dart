@@ -1,3 +1,4 @@
+import 'package:demo_login/screens/2nd_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,20 +8,48 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future navigateToSubPage(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SecondScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("You are in the Home Screen", style: TextStyle(fontSize: 18),),
-          ElevatedButton(onPressed: () {
-            FirebaseAuth.instance.signOut();
-          },
-          child: Text("Sign out"),)
-        ],
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Home Screen"),
+        ),
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/Home.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Welcome to the department.",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  RaisedButton(
+                    color: Colors.blue,
+                    onPressed: () {
+                      navigateToSubPage(context);
+                    },
+                    child: Text("About Us"),
+                  ),
+                  RaisedButton(
+                    color: Colors.red,
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                    child: Text("Sign out"),
+                  ),
+                ],
+              ),
+            )));
   }
 }
